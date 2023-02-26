@@ -13,5 +13,7 @@ for issue in data['results']:
         issues.append({'check_id': issue['check_id'], 'path': issue['path'], 'message': message, 'line': codeLine})
 
 df = pd.DataFrame(issues, columns=['check_id', 'path', 'message', 'line'])
-html = df.to_html(index=False)
-print(html)
+df = df.sort_values(by=['path'])
+
+with open('report.html', 'w') as f:
+    f.write(df.to_html(index=False, justify='left'))
